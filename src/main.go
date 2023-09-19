@@ -1,9 +1,9 @@
 package main
 
 import (
+	"aurum/internal/generating"
 	"aurum/internal/parcing"
 	"aurum/internal/tokenizing"
-	"fmt"
 	"log"
 	"os"
 )
@@ -25,7 +25,22 @@ func main() {
 	parser := parcing.NewParser(tokens)
 	nodeQuit := parser.Parse()
 
-	fmt.Printf("%+v\n", nodeQuit)
+	generator := generating.NewGenerator(nodeQuit)
+	code := generator.Generate()
+
+	writeGoFile(code)
+}
+
+func writeGoFile(code string) {
+	f, err := os.Create("../output/test.go")
+
+	if err != nil {
+		log.Fatal("Error creating a file")
+	}
+
+	defer f.Close()
+
+	f.Write([]byte(code))
 }
 
 func fileContent() (string, error) {

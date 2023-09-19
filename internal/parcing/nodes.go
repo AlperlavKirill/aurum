@@ -9,3 +9,7 @@ type NodeExpr struct {
 type NodeQuit struct {
 	expr NodeExpr
 }
+
+func (nq *NodeQuit) Code() string {
+	return "os.Exit(" + *nq.expr.intLit.Value + ")"
+}
