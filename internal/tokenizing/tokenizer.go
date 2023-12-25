@@ -66,8 +66,15 @@ func (t *Tokenizer) Tokenize() []Token {
 				tokens = append(tokens, Token{Type: Quit, Value: nil})
 				clearBuf()
 				continue
+			}
+			if string(buf) == "let" {
+				tokens = append(tokens, Token{Type: Let, Value: nil})
+				clearBuf()
+				continue
 			} else {
-				log.Fatal("SYNTAX ERROR: you messed up")
+				identName := string(buf)
+				tokens = append(tokens, Token{Type: Ident, Value: &identName})
+				continue
 			}
 		} else if isDigit(char) {
 			consumeToBuf()
@@ -77,6 +84,10 @@ func (t *Tokenizer) Tokenize() []Token {
 			intLitValue := string(buf)
 			tokens = append(tokens, Token{IntLit, &intLitValue})
 			clearBuf()
+			continue
+		} else if char == '=' {
+			t.consume()
+			tokens = append(tokens, Token{Eq, nil})
 			continue
 		} else if char == ';' {
 			t.consume()

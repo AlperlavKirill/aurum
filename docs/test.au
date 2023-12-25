@@ -1,1 +1,2 @@
-quit 123;
+let x = 1;
+quit x;

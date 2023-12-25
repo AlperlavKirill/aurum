@@ -6,6 +6,9 @@ const (
 	Quit TokenType = iota
 	IntLit
 	Semi
+	Ident
+	Let
+	Eq
 )
 
 type Token struct {
