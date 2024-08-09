@@ -23,19 +23,19 @@ func main() {
 	tokens := tokenizer.Tokenize()
 
 	parser := parcing.NewParser(tokens)
-	nodeQuit := parser.Parse()
+	nodeProg := parser.ParseProg()
 
-	generator := generating.NewGenerator(nodeQuit)
+	generator := generating.NewGenerator(nodeProg)
 	code := generator.Generate()
 
 	writeGoFile(code)
 }
 
 func writeGoFile(code string) {
-	f, err := os.Create("../output/test.go")
+	f, err := os.Create("./output/test1.go")
 
 	if err != nil {
-		log.Fatal("Error creating a file")
+		log.Fatal("Error creating a file", err)
 	}
 
 	defer f.Close()

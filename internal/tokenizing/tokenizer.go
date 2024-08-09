@@ -74,6 +74,7 @@ func (t *Tokenizer) Tokenize() []Token {
 			} else {
 				identName := string(buf)
 				tokens = append(tokens, Token{Type: Ident, Value: &identName})
+				clearBuf()
 				continue
 			}
 		} else if isDigit(char) {
@@ -94,6 +95,9 @@ func (t *Tokenizer) Tokenize() []Token {
 			tokens = append(tokens, Token{Semi, nil})
 			continue
 		} else if char == ' ' {
+			t.consume()
+			continue
+		} else if char == '\r' || char == '\n' {
 			t.consume()
 			continue
 		} else {

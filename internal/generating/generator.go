@@ -6,24 +6,23 @@ import (
 )
 
 type Generator struct {
-	nodeQuit parcing.NodeQuit
+	nodeProgram parcing.NodeProg
 }
 
-func NewGenerator(nodeQuit parcing.NodeQuit) Generator {
-	return Generator{nodeQuit}
+func NewGenerator(nodeProgram parcing.NodeProg) Generator {
+	return Generator{nodeProgram}
 }
 
 func (g *Generator) Generate() string {
 	s := fmt.Sprintf(
-		`
-package main
+		`package main
 
 import "os"
 
 func main() {
-	%s
+%s
 }
 
-`, g.nodeQuit.Code())
+`, g.nodeProgram.Code())
 	return s
 }
