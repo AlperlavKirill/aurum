@@ -1,1 +1,2 @@
-quit 1;
+let x = 112332;
+quit x;
